@@ -25,9 +25,12 @@ An Invitation has the following attributes:
 - User ID
 - Invitation Message
 - Status: Enum [ACCEPTED, REJECTED, PENDING, EXPIRED]
-- Invitations expire in 1 week. They are managed by a weekly scheduled job. Only one pending invitation can exist per user. A user can be reinvited if the invitation is expired. Users cannot be reinvited if the invitation is rejected.
+- Invitations expire in 1 week. They are managed by a weekly scheduled job. 
+- Only one pending invitation can exist per user. 
+- A user can be reinvited if the invitation is expired. 
+- Users cannot be reinvited if the invitation is rejected.
 
-## Organization
+## Organization
 
 An Organization has the following attributes:
 
