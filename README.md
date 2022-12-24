@@ -28,6 +28,7 @@ An Invitation has the following attributes:
 - Invitations expire in 1 week. They are managed by a weekly scheduled job. Only one pending invitation can exist per user. A user can be reinvited if the invitation is expired. Users cannot be reinvited if the invitation is rejected.
 
 ## Organization
+
 An Organization has the following attributes:
 
 - Organization Name: Alphanumeric characters
