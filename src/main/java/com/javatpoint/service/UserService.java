@@ -8,6 +8,7 @@ import com.javatpoint.model.Organization;
 import com.javatpoint.repository.UserRepository;
 import java.util.List;
 import com.javatpoint.model.ResourceNotFoundException;
+import com.javatpoint.model.Status;
 @Service
 public class UserService {
   private final UserRepository userRepository;
@@ -23,6 +24,7 @@ public class UserService {
     }
 
     user.setNormalizedName(normalizeName(user.getFullName()));
+    user.setStatus(Status.PASSIVE);
     return userRepository.save(user);
 
   }

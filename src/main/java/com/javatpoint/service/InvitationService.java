@@ -2,6 +2,8 @@ package com.javatpoint.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.javatpoint.model.Invitation;
+import com.javatpoint.model.User;
+import com.javatpoint.model.Status;
 import com.javatpoint.model.InvitationStatus;
 import com.javatpoint.repository.InvitationRepository;
 import com.javatpoint.repository.UserRepository;
@@ -15,10 +17,12 @@ import org.springframework.scheduling.annotation.Scheduled;
 public class InvitationService {
 
   private final InvitationRepository invitationRepository;
+  private final UserRepository userRepository;
 
   @Autowired
   public InvitationService(InvitationRepository invitationRepository, UserRepository userRepository) {
     this.invitationRepository = invitationRepository;
+    this.userRepository = userRepository;
   }
 
   public Invitation createInvitation(Long userId, String message) {
@@ -48,6 +52,14 @@ public class InvitationService {
     }
     Invitation oldInvitation = pendingInvitation.orElse(null);
     oldInvitation.setStatus(invitation.getStatus());
+    User user = userRepository.findById(userId).orElse(null);
+    
+    //change the status of the user if s/he accpets the invitation
+    if(invitation.getStatus() == InvitationStatus.ACCEPTED){
+        user.setStatus(Status.ACTIVE);
+    }
+    
+
     return invitationRepository.save(oldInvitation);
 }
 
