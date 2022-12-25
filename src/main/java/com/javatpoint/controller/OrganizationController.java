@@ -46,7 +46,7 @@ public class OrganizationController {
   public ResponseEntity<Organization> updateOrganization(@PathVariable Long id,
                                                         @Valid @RequestBody Organization organization) {
     Organization updatedOrganization = organizationService.updateOrganization(id, organization.getName(),
-      organization.getNormalizedName(), organization.getRegistryNumber(), organization.getContactEmail(),
+     normalizeName(organization.getName()), organization.getRegistryNumber(), organization.getContactEmail(),
       organization.getYearFounded(), organization.getPhone(), organization.getCompanySize());
     return ResponseEntity.ok(updatedOrganization);
   }
@@ -84,6 +84,12 @@ public class OrganizationController {
   public void deleteUser(@PathVariable Long id) {
     organizationService.deleteOrganization(id);
   }
+
+  public String normalizeName(String name) {
+    String normalizedName = name.toLowerCase();
+    normalizedName = normalizedName.replaceAll("[^a-z0-9]", "");
+    return normalizedName;
+    }
 
     
 }
