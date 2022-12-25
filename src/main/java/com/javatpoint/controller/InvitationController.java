@@ -2,12 +2,15 @@ package com.javatpoint.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 
 import com.javatpoint.model.Invitation;
 import com.javatpoint.service.InvitationService;
@@ -43,6 +46,20 @@ public class InvitationController {
     public Invitation updateInvitation(@PathVariable Long userId, @Valid @RequestBody Invitation invitation) {
         return invitationService.updateInvitation(userId, invitation);
     }
+
+    @GetMapping
+    public Iterable<Invitation> getAllUsers() {
+      return invitationService.getAllInvitations();
+    }
+
+
+    @DeleteMapping("/{id}")
+  public void deleteUser(@PathVariable Long id) {
+    invitationService.deleteInvitation(id);
+  }
+
+
+
 }
 
 

@@ -80,6 +80,15 @@ public Organization getOrganizationByRegistryNumber(String registryNumber) {
     return organizationRepository.findByRegistryNumber(registryNumber).orElseThrow(() -> new ResourceNotFoundException("Organization not found"));
 }
 
+public Iterable <Organization> getAllOrganizations() {
+    return organizationRepository.findAll();
+                          
+  }
+
+  public void deleteOrganization(Long id) {
+    organizationRepository.deleteById(id);
+  }
+
   //Normalizer function for organization service, it takes a string, convert all chars into lowercase and remove non-englsih and non-numeric characters
   public String normalizeName(String name) {
     String normalizedName = name.toLowerCase();

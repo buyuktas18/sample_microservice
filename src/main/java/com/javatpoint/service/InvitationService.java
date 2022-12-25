@@ -53,7 +53,7 @@ public class InvitationService {
     Invitation oldInvitation = pendingInvitation.orElse(null);
     oldInvitation.setStatus(invitation.getStatus());
     User user = userRepository.findById(userId).orElse(null);
-    
+
     //change the status of the user if s/he accpets the invitation
     if(invitation.getStatus() == InvitationStatus.ACCEPTED){
         user.setStatus(Status.ACTIVE);
@@ -71,6 +71,16 @@ public class InvitationService {
     return invitationRepository.save(invitation);
   }
 
+  public Iterable <Invitation> getAllInvitations() {
+    return invitationRepository.findAll();
+                          
+  }
+
+  public void deleteInvitation(Long id) {
+    invitationRepository.deleteById(id);
+  }
+
+
   @Scheduled(cron = "0 0 * * * *") // run every hour
   public void expireInvitations() {
     LocalDateTime now = LocalDateTime.now();
@@ -78,7 +88,5 @@ public class InvitationService {
     expiredInvitations.forEach(invitation -> invitation.setStatus(InvitationStatus.EXPIRED));
     invitationRepository.saveAll(expiredInvitations);
   }
-
-
 
 }
